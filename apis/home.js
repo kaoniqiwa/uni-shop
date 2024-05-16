@@ -1,18 +1,18 @@
-import httpInstance from '../utils/http.js'
-
+// import httpInstance from '../utils/http.js'
+import httpClient from '../utils/axios.js'
 
 /**轮播图*/
 export function getSwiperAPI() {
-	return httpInstance.get('/api/public/v1/home/swiperdata')
+	return httpClient.get('/api/public/v1/home/swiperdata')
 
 }
 
 /**分类导航*/
 export function getNavAPI() {
-	return httpInstance.get('/api/public/v1/home/catitems')
+	return httpClient.get('/api/public/v1/home/catitems')
 }
 
 /**楼层图*/
 export function getFloorAPI() {
-	return httpInstance.get('/api/public/v1/home/floordata')
+	return httpClient.get('/api/public/v1/home/floordata')
 }
