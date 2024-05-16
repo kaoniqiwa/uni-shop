@@ -10,11 +10,16 @@ httpInstance.baseUrl = 'https://api-hmugo-web.itheima.net'
 // 请求拦截
 httpInstance.beforeRequest = function(options) {
 
+	uni.showLoading({
+		title: "数据加载中"
+	})
 }
 
 
 // 响应拦截
-httpInstance.afterRequest = function() {}
+httpInstance.afterRequest = function() {
+	uni.hideLoading()
+}
 
 
 export default httpInstance;

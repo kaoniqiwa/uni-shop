@@ -1,34 +1,3 @@
-<template>
-	<view class="search-box">
-		<!-- 使用 uni-ui 提供的搜索组件 -->
-		<uni-search-bar placeholder="请输入搜索内容" @input="input" :radius="100" cancelButton="none"
-			:focus="true"></uni-search-bar>
-
-		<!-- 搜索建议列表 -->
-		<view class="sugg-list" v-if="searchResult.length">
-			<view class="sugg-item" v-for="(item, i) in searchResult" :key="i" @click="gotoDetail(item.goods_id)">
-				<view class="goods-name">{{item.goods_name}}</view>
-				<uni-icons type="arrowright" size="16"></uni-icons>
-			</view>
-		</view>
-
-		<!-- 搜索历史 -->
-		<view class="history-box" v-else>
-			<!-- 标题区域 -->
-			<view class="history-title">
-				<text>搜索历史</text>
-				<uni-icons type="trash" size="17" @click="clean"></uni-icons>
-			</view>
-			<!-- 列表区域 -->
-			<view class="history-list">
-				<uni-tag :text="item" v-for="(item, i) in historys" :key="i" @click="gotoGoodsList(item)"></uni-tag>
-			</view>
-		</view>
-
-	</view>
-
-</template>
-
 <script setup>
 	import {
 		computed,
@@ -37,7 +6,12 @@
 	} from 'vue';
 	import {
 		debounce
-	} from '../../utils/debounce.js'
+	} from 'lodash'
+
+	// import {
+	// 	debounce
+	// } from '../../utils/debounce.js'
+
 	import {
 		getQSearchAPI
 	} from '../../apis/search.js';
@@ -113,6 +87,37 @@
 
 	})
 </script>
+
+<template>
+	<view class="search-box">
+		<!-- 使用 uni-ui 提供的搜索组件,真机查看焦点功能 -->
+		<uni-search-bar placeholder="请输入搜索内容" @input="input" :radius="100" cancelButton="none"
+			:focus="true"></uni-search-bar>
+
+		<!-- 搜索建议列表 -->
+		<view class="sugg-list" v-if="searchResult.length">
+			<view class="sugg-item" v-for="(item, i) in searchResult" :key="i" @click="gotoDetail(item.goods_id)">
+				<view class="goods-name">{{item.goods_name}}</view>
+				<uni-icons type="arrowright" size="16"></uni-icons>
+			</view>
+		</view>
+
+		<!-- 搜索历史 -->
+		<view class="history-box" v-else>
+			<!-- 标题区域 -->
+			<view class="history-title">
+				<text>搜索历史</text>
+				<uni-icons type="trash" size="17" @click="clean"></uni-icons>
+			</view>
+			<!-- 列表区域 -->
+			<view class="history-list">
+				<uni-tag :text="item" v-for="(item, i) in historys" :key="i" @click="gotoGoodsList(item)"></uni-tag>
+			</view>
+		</view>
+
+	</view>
+
+</template>
 
 <style lang="scss" scoped>
 	.search-box {
