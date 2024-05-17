@@ -15,3 +15,12 @@ export function getGoodsListAPI({
 
 	})
 }
+
+
+
+/*商品详情 */
+export function getGoodsInfoAPI(goods_id) {
+	return httpInstance.get('/api/public/v1/goods/detail', {
+		goods_id
+	})
+}
