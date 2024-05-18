@@ -1,31 +1,23 @@
 {
 	"pages": [{
 			"path": "pages/home/home",
-			"style": {
-
-			}
+			"style": {}
 		},
 		{
 			"path": "pages/cate/cate",
-			"style": {
-
-			}
+			"style": {}
 		},
 		{
 			"path": "pages/cart/cart",
-			"style": {
-
-			}
+			"style": {}
 		},
 		{
 			"path": "pages/my/my",
-			"style": {
-
-			}
+			"style": {}
 		}
 	],
 	"tabBar": {
-		"selectedColor": "#c00000",
+		"custom": false,
 		"list": [{
 				"pagePath": "pages/home/home",
 				"text": "首页",
@@ -51,7 +43,6 @@
 				"selectedIconPath": "static/tab_icons/my-active.png"
 			}
 		]
-
 	},
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
@@ -61,6 +52,11 @@
 		"app-plus": {
 			"background": "#efeff4"
 		}
+		// 注意:小程序引入组件是在顶层字段,uniapp 打包 vant时经常打包失败，丢失路径
+		// "usingComponents": {
+		// 	"van-tabbar": "/wxcomponents/vant/dist/tabbar/index",
+		// 	"van-tabbar-item": "/wxcomponents/vant/dist/tabbar-item/index"
+		// }
 	},
 	"subPackages": [{
 		"root": "subpkg",

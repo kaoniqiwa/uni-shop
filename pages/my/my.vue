@@ -4,14 +4,13 @@
 	</view>
 </template>
 
-<script>
-	export default {
-		data() {
-			return {
+<script setup>
+	import {
+		useBadge
+	} from '../../hooks/badge.js'
 
-			};
-		}
-	}
+	// 设置徽标
+	useBadge()
 </script>
 
 <style lang="scss" scoped>

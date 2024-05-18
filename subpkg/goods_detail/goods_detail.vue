@@ -2,13 +2,33 @@
 	import {
 		onMounted,
 		reactive,
-		ref
+		ref,
+		toRaw
 	} from 'vue';
+	import {
+		storeToRefs
+	} from 'pinia'
 	import {
 		getGoodsInfoAPI
 	} from '../../apis/goods.js'
 
+	import {
+		useCartStore
+	} from '../../store/pinia/cart.js'
+
 	const props = defineProps(['goods_id'])
+
+	/**购物车状态管理*/
+	const cartStore = useCartStore();
+	const {
+		addToCart
+	} = cartStore
+
+	const {
+		cartList,
+		cartCount
+	} = storeToRefs(cartStore)
+
 
 	/**获取商品详情*/
 	const goodsInfo = ref()
@@ -40,6 +60,7 @@
 		}
 	}
 
+	/**uni 购物车组件选项参数*/
 	const options = ref([{
 		icon: 'shop',
 		text: '店铺',
@@ -47,7 +68,7 @@
 	}, {
 		icon: 'cart',
 		text: '购物车',
-		info: 0
+		info: cartCount // 直接绑定响应式，不用深度监听，pinia 真香
 	}])
 
 
@@ -65,13 +86,27 @@
 
 
 	const onclick = (e) => {
-
 		if (e.content.text === '购物车') {
 			uni.switchTab({
 				url: '/pages/cart/cart'
 			})
 		}
 
+	}
+	const onButtonClick = (e) => {
+		if (e.content.text === '加入购物车') {
+			const goods = {
+				goods_id: goodsInfo.value.goods_id,
+				goods_name: goodsInfo.value.goods_name,
+				goods_price: goodsInfo.value.goods_price,
+				goods_count: 1,
+				goods_small_logo: goodsInfo.value.goods_small_logo,
+				goods_state: true
+			}
+			addToCart(goods)
+		} else {
+
+		}
 	}
 
 
@@ -103,14 +138,15 @@
 			</view>
 		</view>
 		<!-- 运费 -->
-		<view class="yf">快递：免运费</view>
+		<view class="yf">快递：免运费 </view>
 	</view>
 
 	<!-- 商品介绍 -->
 	<view class="hello" v-html="goodsInfo?.goods_introduce"></view>
 
 	<view class="goods_nav">
-		<uni-goods-nav :fill="true" :options="options" :button-group="buttonGroup" @click='onclick' />
+		<uni-goods-nav :fill="true" :options="options" :button-group="buttonGroup" @click='onclick'
+			@buttonClick="onButtonClick" />
 	</view>
 
 </template>
