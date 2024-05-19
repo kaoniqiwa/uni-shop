@@ -79,13 +79,19 @@
 	}
 </script>
 
+
+
 <template>
 	<view>
 		<view class="goods-list">
 			<!-- uniapp vue3 不支持组件的原生 click 事件-->
 			<view v-for="item in goodsList" :key="item.goods_id" @click='gotoDetail(item)'>
-				<my-goods :goods="item"></my-goods>
-
+				<my-goods :goods="{
+				goods_id: item.goods_id,
+				goods_name: item.goods_name,
+				goods_price: item.goods_price,
+				goods_small_logo: item.goods_small_logo,
+				}"></my-goods>
 			</view>
 		</view>
 	</view>
