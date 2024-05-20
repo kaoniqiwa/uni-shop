@@ -19,7 +19,7 @@
 
 	/**选择地址，保存到 pinia 中*/
 	const chooseAddress = () => {
-		// /**获取用户收货地址,需要开通接口权限，且配置 app.json*/
+		/**获取用户收货地址,需要开通接口权限，且配置 app.json*/
 		uni.chooseAddress({
 			success(res) {
 				userStore.updateAddress(res)

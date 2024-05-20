@@ -12,6 +12,17 @@ export const useCartStore = defineStore('cart', () => {
 	const cartList = ref([])
 	const cartCount = computed(() => cartList.value.length)
 
+	/**已勾选的商品数量*/
+	const checkedCount = computed(() => {
+		return cartList.value.filter(v => v.goods_state).length
+	})
+	/**已勾选商品价格合计*/
+	const checkedPrice = computed(() => {
+		return cartList.value.filter(v => v.goods_state).reduce((prev, cur) => {
+			return prev + cur.goods_price * cur.goods_count
+		}, 0)
+	})
+
 	const addToCart = (goods) => {
 		const targetGoods = cartList.value.find((v) => v.goods_id === goods.goods_id)
 
@@ -24,6 +35,9 @@ export const useCartStore = defineStore('cart', () => {
 	const updateGoodsState = (goods_id, goods_state) => {
 		const targetGoods = cartList.value.find(v => v.goods_id === goods_id)
 		targetGoods.goods_state = goods_state
+	}
+	const updateAllGoodsState = (goods_state) => {
+		cartList.value.forEach(v => v.goods_state = goods_state)
 	}
 	const updateGoodsCount = (goods_id, goods_count) => {
 		const targetGoods = cartList.value.find(v => v.goods_id === goods_id)
@@ -41,9 +55,12 @@ export const useCartStore = defineStore('cart', () => {
 		cartList,
 		cartCount,
 		addToCart,
+		checkedPrice,
+		checkedCount,
 		updateGoodsState,
 		updateGoodsCount,
-		deleteGoods
+		deleteGoods,
+		updateAllGoodsState
 	}
 }, {
 	persist: {

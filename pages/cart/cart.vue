@@ -25,12 +25,14 @@
 		}
 	}])
 
+	/**选择商品*/
 	const stateChange = ({
 		goods_id,
 		goods_state
 	}) => {
 		cartStore.updateGoodsState(goods_id, goods_state)
 	}
+	/**修改商品数量*/
 	const countChange = ({
 		goods_id,
 		goods_count
@@ -38,6 +40,7 @@
 		cartStore.updateGoodsCount(goods_id, goods_count)
 
 	}
+	/**滑动删除商品*/
 	const clickActionItem = (e, goods_id) => {
 		if (e.index === 0) {
 			cartStore.deleteGoods(goods_id);
@@ -51,7 +54,9 @@
 
 <template>
 	<view class="cart-container" v-if="cartStore.cartList.length">
+		<!-- 收货地址 -->
 		<my-address></my-address>
+
 		<view class="cart-title">
 			<uni-icons type="shop"></uni-icons>
 			<text class="cart-title-text">购物车</text>
@@ -66,6 +71,9 @@
 				</uni-swipe-action-item>
 			</template>
 		</uni-swipe-action>
+
+		<!-- 结算 -->
+		<my-settle></my-settle>
 	</view>
 
 	<view class="empty-cart" v-else>
