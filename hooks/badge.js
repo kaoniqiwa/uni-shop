@@ -5,12 +5,9 @@ import {
 import {
 	useCartStore
 } from '../store/pinia/cart.js'
-import {
-	onShow
-} from '@dcloudio/uni-app'
+
 
 export function useBadge() {
-
 	const cartStore = useCartStore()
 	const {
 		cartCount
@@ -31,9 +28,7 @@ export function useBadge() {
 		}
 
 	}
-	onShow(() => {
-		setTabBarBadge()
-	})
+
 
 	return {
 		setTabBarBadge

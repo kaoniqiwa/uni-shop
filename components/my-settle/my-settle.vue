@@ -5,9 +5,22 @@
 	import {
 		useCartStore
 	} from '../../store/pinia/cart.js'
+
+
+	import {
+		useUserStore
+	} from '../../store/pinia/user.js'
+
+
 	import {
 		storeToRefs
 	} from 'pinia'
+
+	const userStore = useUserStore();
+	const {
+		address,
+		token
+	} = storeToRefs(userStore)
 
 	const cartStore = useCartStore()
 	const {
@@ -20,9 +33,17 @@
 	} = cartStore
 
 	const isFullChecked = computed(() => cartCount.value == checkedCount.value)
+
 	/**全选、反选*/
 	const toggleChecked = () => {
 		updateAllGoodsState(!isFullChecked.value)
+	}
+
+	/**结算*/
+	const settlement = () => {
+		if (!checkedCount.value) return uni.$showMsg('请选择要结算的商品！')
+		if (!address.value) return uni.$showMsg('请选择收货地址！')
+		if (!token.value) return uni.$showMsg('请先登录！')
 	}
 </script>
 <template>
@@ -38,7 +59,7 @@
 		</view>
 
 		<!-- 结算按钮 -->
-		<view class="btn-settle">结算({{cartStore.checkedCount}})</view>
+		<view class="btn-settle" @click="settlement">结算({{cartStore.checkedCount}})</view>
 	</view>
 </template>
 

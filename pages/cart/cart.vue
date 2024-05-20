@@ -1,5 +1,10 @@
 <script setup>
 	import {
+		onShow
+	} from '@dcloudio/uni-app'
+
+
+	import {
 		nextTick,
 		onMounted,
 		ref
@@ -47,8 +52,9 @@
 			setTabBarBadge()
 		}
 	}
-	onMounted(() => {
-		useBadge()
+
+	onShow(() => {
+		setTabBarBadge()
 	})
 </script>
 

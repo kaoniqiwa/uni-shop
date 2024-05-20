@@ -8,6 +8,7 @@ import {
 
 
 export const useUserStore = defineStore('user', () => {
+	const token = ref()
 	const address = ref()
 	const addrDetail = computed(() => address.value?.provinceName + address.value?.cityName + address.value
 		?.countyName +
@@ -18,6 +19,7 @@ export const useUserStore = defineStore('user', () => {
 	}
 
 	return {
+		token,
 		address,
 		addrDetail,
 		updateAddress
