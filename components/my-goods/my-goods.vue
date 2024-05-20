@@ -50,7 +50,6 @@
 		})
 	}
 	const countChangeHandler = (count : number) => {
-		console.log(count)
 		emits('count-change', {
 			goods_id: props.goods.goods_id,
 			goods_count: +count
@@ -73,7 +72,6 @@
 				<!-- 商品价格 -->
 				<view class="goods-price">￥{{ $filter(goods.goods_price) }}</view>
 				<uni-number-box v-show="showNum" v-model="goods.goods_count" :min="1" @change="countChangeHandler" />
-
 			</view>
 		</view>
 	</view>

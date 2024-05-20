@@ -104,6 +104,11 @@
 				goods_state: true
 			}
 			addToCart(goods)
+
+			uni.showToast({
+				title: '添加成功',
+				icon: 'none'
+			})
 		} else {
 
 		}
@@ -210,7 +215,7 @@
 	}
 </style>
 
-<!-- 不能 scopedv -->
+<!-- 不能 scoped -->
 <style>
 	page {
 		padding-bottom: 50px;

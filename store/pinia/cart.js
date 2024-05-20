@@ -29,12 +29,21 @@ export const useCartStore = defineStore('cart', () => {
 		const targetGoods = cartList.value.find(v => v.goods_id === goods_id)
 		targetGoods.goods_count = goods_count
 	}
+
+	const deleteGoods = (goods_id) => {
+		const index = cartList.value.findIndex(v => v.goods_id === goods_id)
+		if (index !== -1) {
+			cartList.value.splice(index, 1)
+		}
+
+	}
 	return {
 		cartList,
 		cartCount,
 		addToCart,
 		updateGoodsState,
-		updateGoodsCount
+		updateGoodsCount,
+		deleteGoods
 	}
 }, {
 	persist: {
@@ -45,10 +54,15 @@ export const useCartStore = defineStore('cart', () => {
 				return uni.getStorageSync(key)
 			},
 			setItem(key, value) {
-				return uni.setStorageSync(key, value)
+				uni.setStorageSync(key, value)
 			}
 		},
-		afterRestore(ctx) {}
+		serializer: {
+			serialize: JSON.stringify,
+			deserialize: JSON.parse
+		},
+		beforeRestore(ctx) {},
+		afterRestore(ctx) {},
 	}
 
 })

@@ -1,6 +1,6 @@
 {
-	"name": "my-uni-shop",
-	"appid": "",
+	"name": "栲霓杞蛙的优购商城",
+	"appid": "__UNI__EFB9F5A",
 	"description": "",
 	"versionName": "1.0.0",
 	"versionCode": "100",
@@ -49,8 +49,8 @@
 	"quickapp": {},
 	/* 快应用特有相关 */
 	"mp-weixin": {
-		/* 小程序特有相关 */
 		"appid": "wxe30a2101d85702ae",
+		"requiredPrivateInfos": ["chooseAddress"],
 		"setting": {
 			"urlCheck": false
 		},

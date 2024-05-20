@@ -35,4 +35,8 @@ export function useBadge() {
 		setTabBarBadge()
 	})
 
+	return {
+		setTabBarBadge
+	}
+
 }
