@@ -52,9 +52,11 @@
 		"appid": "wxe30a2101d85702ae",
 		"requiredPrivateInfos": ["chooseAddress"],
 		"setting": {
-			"urlCheck": false
+			"urlCheck": false,
+			"es6": true
 		},
-		"usingComponents": true
+		"usingComponents": true,
+		"permission": {}
 	},
 	"vueVersion": "3"
 }

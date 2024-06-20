@@ -7,6 +7,7 @@ const httpInstance = $http;
 httpInstance.baseUrl = 'https://api-hmugo-web.itheima.net'
 
 
+
 // 请求拦截
 httpInstance.beforeRequest = function(options) {
 
