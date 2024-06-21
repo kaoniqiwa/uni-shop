@@ -1,32 +1,33 @@
 <script setup>
-	import {
-		onShow
-	} from '@dcloudio/uni-app'
+import {
+	onShow
+} from '@dcloudio/uni-app'
 
-	import {
-		useBadge
-	} from '../../hooks/badge.js'
+import {
+	useBadge
+} from '../../hooks/badge.js'
 
-	import {
-		storeToRefs
-	} from 'pinia'
-	import {
-		useUserStore
-	} from '../../store/pinia/user.js'
+import {
+	storeToRefs
+} from 'pinia'
+import {
+	useUserStore
+} from '@/store/pinia/user.js'
 
-	// 设置徽标
-	const {
-		setTabBarBadge
-	} = useBadge();
-	const userStore = useUserStore();
 
-	const {
-		token
-	} = storeToRefs(userStore)
+// 设置徽标
+const {
+	setTabBarBadge
+} = useBadge();
+const userStore = useUserStore();
 
-	onShow(() => {
-		setTabBarBadge()
-	})
+const {
+	token
+} = storeToRefs(userStore)
+
+onShow(() => {
+	setTabBarBadge()
+})
 </script>
 <template>
 	<view class='my-container'>
@@ -37,5 +38,13 @@
 
 
 <style lang="scss" scoped>
+.my-container {
+	height: 100%
+}
+</style>
 
+<style lang="scss">
+page {
+	height: 100%
+}
 </style>

@@ -4,7 +4,8 @@ import { useUserStore } from '@/store/pinia/user.js';
 
 import { ref } from 'vue';
 
-const { updateUserinfo } = useUserStore();
+const userStore = useUserStore()
+const { updateUserinfo, updateToken } = userStore;
 
 const nickName = ref('');
 
@@ -15,7 +16,7 @@ const getUserInfo = (e) => {
 		return uni.$showMsg('您取消了登录授权！');
 
 	// 获取用户信息成功， e.detail.userInfo 就是用户的基本信息
-	console.log(e.detail);
+	// console.log(e.detail);
 	updateUserinfo(e.detail.userInfo);
 
 	getToken(e.detail);
@@ -34,11 +35,23 @@ const getUserProfile = async () => {
 	// getToken(res)
 };
 
-//"0c1ukGGa1WrNFH0rcoFa1Yz02z2ukGGn"
+
+const navigateBack = () => {
+	// console.log(userStore.redirectInfo);
+
+	if (userStore.redirectInfo?.openType && userStore.redirectInfo?.from) {
+		uni[userStore.redirectInfo.openType]({
+			url: userStore.redirectInfo.from,
+			complete() {
+				userStore.updateRedirectInfo(null)
+			}
+		})
+	}
+}
+
 const getToken = async (info) => {
-	const res = uni.login({
+	uni.login({
 		async success(res) {
-			console.log(res);
 
 			const query = {
 				code: res.code,
@@ -52,6 +65,7 @@ const getToken = async (info) => {
 				'/api/public/v1/users/wxlogin',
 				query
 			);
+			// 接口有问题，模拟数据
 			data = {
 				message: {
 					user_id: 12,
@@ -66,7 +80,7 @@ const getToken = async (info) => {
 					create_time: 1525402223,
 					update_time: 1525402223,
 					token:
-						'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEyLCJpYXQiOjE1MjU0MDIyMjMsImV4cCI6MTUyNTQ4ODYyM30.g-4GtEQNPwT_Xs0Pq7Lrco_9DfHQQsBiOKZerkO-O-o',
+						'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjIzLCJpYXQiOjE1NjQ3MzAwNzksImV4cCI6MTAwMTU2NDczMDA3OH0.YPt-XeLnjV-_1ITaXGY2FhxmCe4NvXuRnRB8OMCfnPo',
 				},
 				meta: {
 					msg: '登录成功',
@@ -77,6 +91,8 @@ const getToken = async (info) => {
 				return uni.$showMsg('登录失败！');
 			} else {
 				uni.$showMsg('登录成功');
+				updateToken(data.message.token)
+				navigateBack()
 			}
 		},
 		fail() {
@@ -84,8 +100,8 @@ const getToken = async (info) => {
 		},
 	});
 
-	// console.log('sdsd', res)
 };
+
 </script>
 <template>
 	<view class="login-container">
